@@ -1,6 +1,5 @@
-import { getUser } from '@/lib/data'
-import styles from './postUser.module.css'
-
+import { getUser } from "@/lib/data";
+import styles from "./postUser.module.css";
 
 // FETCH DATA WITH API
 // const getData = async (userId) => {
@@ -13,20 +12,19 @@ import styles from './postUser.module.css'
 //     return res.json()
 // }
 
-const PostUser = async ({userId}) => {
+const PostUser = async ({ userId }) => {
+  // FETCH DATA WITH API
+  // const user = await getData(userId)
 
-    // FETCH DATA WITH API
-    // const user = await getData(userId)
+  // FETCH DATA WITHOUT API
+  const user = await getUser(userId);
 
-    // FETCH DATA WITHOUT API
-    const user = await getUser(userId)
+  return (
+    <div className={styles.container}>
+      <span className={styles.title}>Author</span>
+      <span className={styles.username}>{user.name}</span>
+    </div>
+  );
+};
 
-    return (
-        <div className={styles.container}>
-            <span className={styles.title}>Author</span>
-            <span className={styles.username}>{user.name}</span>
-        </div>
-    )
-}
-
-export default PostUser
+export default PostUser;

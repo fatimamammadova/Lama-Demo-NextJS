@@ -1,12 +1,12 @@
-
+import Link from "next/link";
 import styles from "./footer.module.css"
 
 const Footer = () => {
     return (
         <div className={styles.container}>
-            <div className={styles.logo}>
+            <Link href="https://github.com/fatimamammadova" className={styles.logo}>
                 fatimamammadova
-            </div>
+            </Link>
             <div className={styles.text}>
                 All rights reserved.
             </div>
