@@ -23,6 +23,26 @@
     color: var(--bg);
 }
 
+.signin {
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 20px;
+    font-weight: 500;
+    border: 1px solid var(--bg);
+    border-radius: 20px;
+    background-color: var(--text);
+    color: var(--bg);
+    font-size: 16px;
+    transition: all .1s linear;
+}
+
+.signin:hover {
+    background-color: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--text);
+}
+
+
 .profile img {
     border-radius: 50%;
 }

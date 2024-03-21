@@ -4,7 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./links.module.css";
 import NavLink from "./navLink/navLink";
-import { useState } from "react";
+
+import { signOut, useSession, signIn, getProviders } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 const links = [
   {
@@ -27,7 +29,18 @@ const links = [
 
 const Links = () => {
   const [open, setOpen] = useState();
-  const isUserLoggedIn = true;
+  const { data: session } = useSession();
+  const [providers, setProviders] = useState(null);
+
+  useEffect(() => {
+    const setUpProviders = async () => {
+      const response = await getProviders();
+
+      setProviders(response);
+    };
+
+    setUpProviders();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -36,17 +49,34 @@ const Links = () => {
           <NavLink item={link} key={link.title} />
         ))}
 
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <>
-            <button type="button" className={styles.signout}>
+            <button type="button" className={styles.signout} onClick={signOut}>
               Sign Out
             </button>
             <Link href="/profile" className={styles.profile}>
-              <Image src="/noavatar.png" width={40} height={40} />
+              <Image
+                src={session?.user.image}
+                width={40}
+                height={40}
+                alt="User Image"
+              />
             </Link>
           </>
         ) : (
-          <NavLink item={{ title: "Sign In", path: "/login" }} />
+          <>
+            {providers &&
+              Object.values(providers).map((provider) => (
+                <button
+                  type="button"
+                  key={provider.name}
+                  onClick={() => signIn(provider.id)}
+                  className={styles.signin}
+                >
+                  Sign In
+                </button>
+              ))}
+          </>
         )}
       </div>
       <Image
@@ -58,17 +88,38 @@ const Links = () => {
       />
       {open && (
         <div className={styles.mobileLinks}>
-          {isUserLoggedIn ? (
+          {session?.user ? (
             <>
               <Link href="/profile" className={styles.profile}>
-                <Image src="/noavatar.png" width={60} height={60} />
+                <Image
+                  src={session?.user.image}
+                  width={60}
+                  height={60}
+                  alt="User Image"
+                />
               </Link>
-              <button type="button" className={styles.signout}>
+              <button
+                type="button"
+                className={styles.signout}
+                onClick={signOut}
+              >
                 Sign Out
               </button>
             </>
           ) : (
-            <NavLink item={{ title: "SignIn", path: "/login" }} />
+            <>
+              {providers &&
+              Object.values(providers).map((provider) => (
+                <button
+                  type="button"
+                  key={provider.name}
+                  onClick={() => signIn(provider.id)}
+                  className={styles.signin}
+                >
+                  Sign In
+                </button>
+              ))}
+            </>
           )}
           {links.map((link) => (
             <NavLink item={link} key={link.title} />
