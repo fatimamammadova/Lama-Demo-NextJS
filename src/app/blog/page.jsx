@@ -1,37 +1,41 @@
-import PostCard from "@/components/postCard/postCard"
-import styles from "./blog.module.css"
-import { getPosts } from "@/lib/data"
+"use client";
+import PostCard from "@/components/postCard/postCard";
+import styles from "./blog.module.css";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
+const Blog = () => {
+  const { data: session } = useSession();
+  const [posts, setPosts] = useState(null);
 
-// FETCH DATA WITH API
-// const getData = async () => {
-//     const res = await fetch(`https://jsonplaceholder.typicode.com/posts`)
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("/api/blog");
+      const data = await response.json();
 
-//     if(!res.ok) {
-//         throw new Error('Something went wrong')
-//     }
+      setPosts(data);
+    };
+    fetchData();
+  }, []);
 
-//     return res.json()
-// }
-
-const Blog = async () => {
-
-    // FETCH DATA WITH API
-    // const posts = await getData()
-
-    // FETCH DATA WITHOUT API
-    const posts = await getPosts()
-    
-    return (
-        <div className={styles.container}>
-            {posts.map(post => (
-                <div className={styles.post} key={post.id}>
-                    <PostCard post={post}/>
-                </div>
-
-            ))}
+  return (
+    <div className={styles.container}>
+      {session && (
+        <div className={styles.buttonContainer}>
+          <Link className={styles.createButton} href="/create-blog">
+            Create Blog
+          </Link>
         </div>
-    )
-}
+      )}
 
-export default Blog
+      {posts && posts.map((post) => (
+        <div className={styles.post} key={post._id}>
+          <PostCard post={post} />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default Blog;

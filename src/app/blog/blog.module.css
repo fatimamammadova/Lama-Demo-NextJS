@@ -1,21 +1,45 @@
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 50px 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px 30px;
+}
+
+.buttonContainer {
+  width: 100%;
+  text-align: end;
+  margin: 10px 0;
+}
+
+.createButton {
+  display: inline-block;
+  background-color: transparent;
+  border: 1px solid var(--text);
+  padding: 13px 20px;
+  border-radius: 40px;
+  font-size: 20px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all .1s linear;
+}
+
+.createButton:hover {
+  background-color: var(--text);
+  border: 1px solid var(--bg);
+  color: var(--bg);
 }
 
 .post {
-    width: calc(33.333% - 20px);
+  width: calc(33.333% - 20px);
 }
 
 @media screen and (max-width: 1280px) {
-    .post {
-      width: calc(50% - 20px);
-    }
+  .post {
+    width: calc(50% - 20px);
+  }
 }
-  
+
 @media screen and (max-width: 768px) {
-    .post {
-      width: 100%;
-    }
+  .post {
+    width: 100%;
+  }
 }

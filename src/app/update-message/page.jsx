@@ -45,7 +45,7 @@ const UpdateMessage = () => {
       });
 
       if (res.ok) {
-        router.push("/");
+        router.push("/profile");
       }
     } catch (error) {
       console.error(error);

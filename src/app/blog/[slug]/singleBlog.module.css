@@ -1,15 +1,16 @@
-.container {
+.innerContainer {
     display: flex;
-    gap: 100px;
-}
+    gap: 50px;
 
+}
 .imgContainer {
     flex: 1;
     position: relative;
-    height: calc(100vh - 200px);
 }
+
 .img {
     object-fit: cover;
+    height: 100%;
 }
 
 .textContainer {
@@ -17,7 +18,28 @@
     display: flex;
     flex-direction: column;
     gap: 50px;
+    margin-top: 40px;
 }
+
+.authorImgContainer {
+    position: relative;
+}
+
+.authorDetail {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.authorTitle {
+    color: #808080;
+    font-weight: bold;
+}
+
+.username {
+    font-weight: 500;
+}
+
 
 .title {
     font-size: 50px;
@@ -52,8 +74,52 @@
     font-size: 20px;
 }
 
-@media (max-width: 768px) {
-    .imgContainer {
-        display: none;
+.fetchButtons {
+    text-align: end;
+    margin-top: 30px;
+}
+
+.fetchButtons button {
+    display: inline-block;
+    background-color: transparent;
+    font-size: 20px;
+    margin: 0 7px;
+    cursor: pointer;
+    padding: 8px 18px;
+    border-radius: 30px;
+    transition: all .2s linear;
+}
+
+.update {
+    border:1px solid #65B741;
+    color: #65B741;
+}
+.update:hover {
+    background-color: #65B741;
+    color: var(--text);
+}
+
+.delete {
+    border:1px solid #D24545;
+    color: #D24545;
+}
+
+.delete:hover {
+    background-color: #D24545;
+    color: var(--text);
+}
+
+
+
+@media (max-width: 900px) {
+    .innerContainer {
+        flex-direction: column-reverse;
+    }
+
+    .textContainer {
+        margin-top: 20px;
+    }
+    .title {
+        font-size: 40px;
     }
 }
