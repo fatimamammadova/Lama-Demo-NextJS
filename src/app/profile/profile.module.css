@@ -1,0 +1,145 @@
+.profile {
+    margin-top: 30px;
+}
+
+.img {
+    position: relative;
+    height: 70px;
+    width: 70px;
+}
+
+.img img {
+    border-radius: 50%;
+}
+
+.profile {
+    display: flex;
+    padding-bottom: 80px;
+}
+
+.info {
+    margin-left: 20px;
+}
+
+.name {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.email {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(128, 128, 128, 0.744);
+}
+
+.title {
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+
+@media (min-width: 768px) {
+    .img {
+        height: 120px;
+        width: 120px;
+    }
+    .info {
+        margin-left: 50px;
+    }
+    .name {
+        font-size: 48px;
+        margin-bottom: 10px;
+    }    
+    .email {
+        font-size: 25px;
+    }
+    .title {
+        font-size: 35px;
+        margin-bottom: 25px;
+    }
+}
+
+
+.messageContainer {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px 25px;
+}
+
+@media (min-width: 768px) {
+    .messageContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .messageContainer {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1260px) {
+    .messageContainer {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.message {
+    padding: 20px 25px;
+    border: 2px solid #1e1c35;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.messageProfile {
+    display: flex;
+    gap: 10px;
+}
+
+.messageImg img {
+    border-radius: 50%;
+}
+
+.messageInfo {
+    margin-bottom: 15px;
+}
+
+.messageName {
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.messageEmail {
+    font-size: 13px;
+    color: gray;
+}
+
+.messageText {
+    font-size: 18px;
+}
+
+.buttons {
+    margin-top: 20px;
+    text-align: end;
+}
+
+.buttons button {
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    margin: 0 7px;
+    cursor: pointer;
+    text-shadow: 1px 1px 10px rgba(255, 239, 239, 0.219);
+}
+
+.update {
+    color: #0b9e0bfe;
+    
+}
+
+.delete {
+    color: #f3452e;
+}
+

@@ -1,24 +1,70 @@
-import styles from "./contact.module.css"
-import Image from "next/image"
-
+"use client";
+import { useSession } from "next-auth/react";
+import styles from "./contact.module.css";
+import Image from "next/image";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Form from "@/components/Form/Form";
 
 const Contact = () => {
-    return (
-        <div className={styles.container}>
-            <div className={styles.imgContainer}>
-                <Image src="/contact.png" alt="Contact Image" fill className={styles.img} />
-            </div>
-            <div className={styles.formContainer}>
-                <form action="" className={styles.form}>
-                    <input type="text" placeholder="Name and Surname" />
-                    <input type="text" placeholder="Email Address" />
-                    <input type="text" placeholder="Phone Number (Optional)" />
-                    <textarea name="" id="" cols="30" rows="10" placeholder="Message"></textarea>
-                    <button type="submit">Send</button>
-                </form>
-            </div>
-        </div>
-    )
-}
+  const router = useRouter();
+  const { data: session } = useSession();
+  const [submitting, setSubmitting] = useState(false);
+  const [post, setPost] = useState({
+    phoneNumber: "",
+    message: "",
+  });
 
-export default Contact
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    if (!session) {
+      alert("You are not a profile. If you send a message, please log in ");
+      return;
+    } else {
+      try {
+        const response = await fetch("/api/message/new", {
+          method: "POST",
+          body: JSON.stringify({
+            userId: session?.user.id,
+            name: session?.user.name,
+            email: session?.user.email,
+            phoneNumber: post.phoneNumber,
+            message: post.message,
+          }),
+        });
+
+        if (response.ok) {
+          router.push("/");
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setSubmitting(false);
+      }
+    }
+  };
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.imgContainer}>
+        <Image
+          src="/contact.png"
+          alt="Contact Image"
+          fill
+          className={styles.img}
+        />
+      </div>
+
+      <Form
+        post={post}
+        handleSubmit={handleSubmit}
+        submitting={submitting}
+        setPost={setPost}
+        session={session}
+      />
+    </div>
+  );
+};
+
+export default Contact;

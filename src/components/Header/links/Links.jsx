@@ -60,6 +60,7 @@ const Links = () => {
                 width={40}
                 height={40}
                 alt="User Image"
+                priority="true"
               />
             </Link>
           </>
