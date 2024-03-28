@@ -8,7 +8,6 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const SingleBlog = ({ params }) => {
-  const pathName = usePathname();
   const router = useRouter();
   const { data: session } = useSession();
   const [post, setPost] = useState(null);
@@ -22,12 +21,6 @@ const SingleBlog = ({ params }) => {
     };
     fetchData();
   }, []);
-
-  useEffect(() => {
-    const blogLink = document.querySelector(".Blog");
-    blogLink.classList.add("navLink_active__xSnAx");
-    console.log(pathName)
-  }, [pathName]);
 
   const handleDeleteBlog = async (post) => {
     const hasConfirmed = confirm("Are you sure you want to delete this blog?");
