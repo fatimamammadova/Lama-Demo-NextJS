@@ -2,7 +2,7 @@
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import styles from "../profile.module.css";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import PostCard from "@/components/postCard/postCard";
 
@@ -74,38 +74,40 @@ const Profile = ({ params }) => {
           </div>
 
           {session?.user.id === params.id && (
-            <div className={styles.messages}>
-              <h3 className={styles.title}>Messages</h3>
+            <Suspense>
+              <div className={styles.messages}>
+                <h3 className={styles.title}>Messages</h3>
 
-              <div className={styles.messageContainer}>
-                {posts &&
-                  posts.map((post) => (
-                    <div className={styles.message} key={post._id}>
-                      <div className={styles.messageProfile}>
-                        <div className={styles.messageImg}>
-                          <Image
-                            src={session?.user.image}
-                            width={35}
-                            height={35}
-                            alt="Profile Image"
-                            priority="true"
-                          />
+                <div className={styles.messageContainer}>
+                  {posts &&
+                    posts.map((post) => (
+                      <div className={styles.message} key={post._id}>
+                        <div className={styles.messageProfile}>
+                          <div className={styles.messageImg}>
+                            <Image
+                              src={session?.user.image}
+                              width={35}
+                              height={35}
+                              alt="Profile Image"
+                              priority="true"
+                            />
+                          </div>
+                          <div className={styles.messageInfo}>
+                            <h2 className={styles.messageName}>
+                              {session?.user.name}
+                            </h2>
+                            <p className={styles.messageEmail}>
+                              {session?.user.email}
+                            </p>
+                          </div>
                         </div>
-                        <div className={styles.messageInfo}>
-                          <h2 className={styles.messageName}>
-                            {session?.user.name}
-                          </h2>
-                          <p className={styles.messageEmail}>
-                            {session?.user.email}
-                          </p>
-                        </div>
+
+                        <p className={styles.messageText}>{post.message}</p>
                       </div>
-
-                      <p className={styles.messageText}>{post.message}</p>
-                    </div>
-                  ))}
+                    ))}
+                </div>
               </div>
-            </div>
+            </Suspense>
           )}
         </>
       )}
