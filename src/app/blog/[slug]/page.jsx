@@ -2,7 +2,7 @@
 import styles from "./singleBlog.module.css";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { formatDate } from "@/lib/function";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -41,8 +41,8 @@ const SingleBlog = ({ params }) => {
   };
 
   const handleBlogId = async (post) => {
-    router.push(`/update-blog?id=${post._id}`)
-  }
+    router.push(`/update-blog?id=${post._id}`);
+  };
 
   return (
     <div className={styles.container}>
@@ -65,7 +65,11 @@ const SingleBlog = ({ params }) => {
               <h1 className={styles.title}>{post?.title}</h1>
               <div className={styles.detail}>
                 <Link
-                   href={session?.user.id === post?.creator._id ? `/profile` : `/profile/${post?.creator._id}`}
+                  href={
+                    session?.user.id === post?.creator._id
+                      ? `/profile`
+                      : `/profile/${post?.creator._id}`
+                  }
                   className={styles.authorImgContainer}
                 >
                   <Image
@@ -80,7 +84,11 @@ const SingleBlog = ({ params }) => {
                 <div className={styles.authorDetail}>
                   <span className={styles.authorTitle}>Author</span>
                   <Link
-                    href={session?.user.id === post?.creator._id ? `/profile` : `/profile/${post?.creator._id}`}
+                    href={
+                      session?.user.id === post?.creator._id
+                        ? `/profile`
+                        : `/profile/${post?.creator._id}`
+                    }
                     className={styles.username}
                   >
                     {post?.creator.username}
@@ -99,20 +107,26 @@ const SingleBlog = ({ params }) => {
         )}
       </div>
 
-      {session?.user.id === post?.creator._id && (
-        <div className={styles.fetchButtons}>
-          <button type="button" className={styles.update} onClick={() => handleBlogId(post)}>
-            Update
-          </button>
-          <button
-            type="button"
-            className={styles.delete}
-            onClick={() => handleDeleteBlog(post)}
-          >
-            Delete
-          </button>
-        </div>
-      )}
+      <Suspense>
+        {session?.user.id === post?.creator._id && (
+          <div className={styles.fetchButtons}>
+            <button
+              type="button"
+              className={styles.update}
+              onClick={() => handleBlogId(post)}
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              className={styles.delete}
+              onClick={() => handleDeleteBlog(post)}
+            >
+              Delete
+            </button>
+          </div>
+        )}
+      </Suspense>
     </div>
   );
 };
