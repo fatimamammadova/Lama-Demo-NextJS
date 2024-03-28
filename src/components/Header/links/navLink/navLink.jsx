@@ -5,12 +5,13 @@ import { usePathname } from "next/navigation";
 
 const NavLink = ({ item }) => {
   const pathName = usePathname();
+  const isActive = pathName === item.path || pathName.includes("/blog/");
   
   return (
     <Link
       href={item.path}
       className={`${styles.container} ${
-        pathName === item.path && styles.active
+        isActive && styles.active
       }`}
     >
       {item.title}
