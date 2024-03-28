@@ -73,8 +73,8 @@ const Profile = ({ params }) => {
             </div>
           </div>
 
-          {session?.user.id === params.id && (
-            <Suspense>
+          <Suspense>
+            {session?.user.id === params.id && (
               <div className={styles.messages}>
                 <h3 className={styles.title}>Messages</h3>
 
@@ -107,8 +107,8 @@ const Profile = ({ params }) => {
                     ))}
                 </div>
               </div>
-            </Suspense>
-          )}
+            )}
+          </Suspense>
         </>
       )}
     </div>
