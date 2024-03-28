@@ -4,12 +4,13 @@ import Image from "next/image";
 import styles from "./profile.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import PostCard from "@/components/postCard/postCard";
 
-const Profile = () => {
-  const router = useRouter()
+const MyProfile = () => {
+  const router = useRouter();
   const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
-
+  const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +21,17 @@ const Profile = () => {
     };
 
     if (session?.user.id) fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      const res = await fetch(`/api/users/${session?.user.id}/blogs`);
+      const data = await res.json();
+
+      setBlogs(data);
+    };
+
+    if (session?.user.id) fetchBlogs();
   }, []);
 
   const handleDelete = async (post) => {
@@ -43,76 +55,87 @@ const Profile = () => {
   };
 
   const handleMessageId = (post) => {
-    router.push(`/update-message?id=${post._id}`)
-  }
+    router.push(`/update-message?id=${post._id}`);
+  };
 
   return (
     <div className={styles.container}>
       {session?.user && (
-        <div className={styles.profile}>
-          <div className={styles.img}>
-            <Image
-              src={session?.user.image}
-              fill
-              alt="Profile Image"
-              priority="true"
-            />
+        <>
+          <div className={styles.profile}>
+            <div className={styles.img}>
+              <Image
+                src={session?.user.image}
+                fill
+                alt="Profile Image"
+                priority="true"
+              />
+            </div>
+            <div className={styles.info}>
+              <h2 className={styles.name}>{session?.user.name}</h2>
+              <p className={styles.email}>{session?.user.email}</p>
+            </div>
           </div>
-          <div className={styles.info}>
-            <h2 className={styles.name}>{session?.user.name}</h2>
-            <p className={styles.email}>{session?.user.email}</p>
-          </div>
-        </div>
-      )}
-      {session?.user && (
-        <div className={styles.messages}>
-          <h3 className={styles.title}>Messages</h3>
 
-          <div className={styles.messageContainer}>
-            {posts &&
-              posts.map((post) => (
-                <div className={styles.message} key={post._id}>
-                  <div className={styles.messageProfile}>
-                    <div className={styles.messageImg}>
-                      <Image
-                        src={session?.user.image}
-                        width={35}
-                        height={35}
-                        alt="Profile Image"
-                        priority="true"
-                      />
+          <div className={styles.innerContainer}>
+            <h3 className={styles.title}>Blogs</h3>
+            <div className={styles.blogsContainer}>
+              {blogs && blogs.map((blog) => <PostCard post={blog} key={blog._id}/>)}
+            </div>
+          </div>
+
+          <div className={styles.innerContainer}>
+            <h3 className={styles.title}>Messages</h3>
+
+            <div className={styles.messageContainer}>
+              {posts &&
+                posts.map((post) => (
+                  <div className={styles.message} key={post._id}>
+                    <div className={styles.messageProfile}>
+                      <div className={styles.messageImg}>
+                        <Image
+                          src={session?.user.image}
+                          width={35}
+                          height={35}
+                          alt="Profile Image"
+                          priority="true"
+                        />
+                      </div>
+                      <div className={styles.messageInfo}>
+                        <h2 className={styles.messageName}>
+                          {session?.user.name}
+                        </h2>
+                        <p className={styles.messageEmail}>
+                          {session?.user.email}
+                        </p>
+                      </div>
                     </div>
-                    <div className={styles.messageInfo}>
-                      <h2 className={styles.messageName}>
-                        {session?.user.name}
-                      </h2>
-                      <p className={styles.messageEmail}>
-                        {session?.user.email}
-                      </p>
+
+                    <p className={styles.messageText}>{post.message}</p>
+
+                    <div className={styles.buttons}>
+                      <button
+                        className={styles.update}
+                        onClick={() => handleMessageId(post)}
+                      >
+                        Update
+                      </button>
+                      <button
+                        type="button"
+                        className={styles.delete}
+                        onClick={() => handleDelete(post)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
-
-                  <p className={styles.messageText}>{post.message}</p>
-
-                  <div className={styles.buttons}>
-                    <button className={styles.update} onClick={() => handleMessageId(post)}>
-                      Update
-                    </button>
-                    <button
-                      type="button"
-                      className={styles.delete}
-                      onClick={() => handleDelete(post)}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              ))}
+                ))}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
 };
 
-export default Profile;
+export default MyProfile;

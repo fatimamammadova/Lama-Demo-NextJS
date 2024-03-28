@@ -65,7 +65,7 @@ const SingleBlog = ({ params }) => {
               <h1 className={styles.title}>{post?.title}</h1>
               <div className={styles.detail}>
                 <Link
-                  href={session ? `/profile` : `/${post?.creator._id}`}
+                   href={session?.user.id === post?.creator._id ? `/profile` : `/profile/${post?.creator._id}`}
                   className={styles.authorImgContainer}
                 >
                   <Image
@@ -80,7 +80,7 @@ const SingleBlog = ({ params }) => {
                 <div className={styles.authorDetail}>
                   <span className={styles.authorTitle}>Author</span>
                   <Link
-                    href={session ? `/profile` : `/${post?.creator._id}`}
+                    href={session?.user.id === post?.creator._id ? `/profile` : `/profile/${post?.creator._id}`}
                     className={styles.username}
                   >
                     {post?.creator.username}

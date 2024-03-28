@@ -1,5 +1,7 @@
 .profile {
     margin-top: 30px;
+    display: flex;
+    padding-bottom: 80px;
 }
 
 .img {
@@ -12,10 +14,6 @@
     border-radius: 50%;
 }
 
-.profile {
-    display: flex;
-    padding-bottom: 80px;
-}
 
 .info {
     margin-left: 20px;
@@ -42,22 +40,29 @@
         height: 120px;
         width: 120px;
     }
+
     .info {
         margin-left: 50px;
     }
+
     .name {
         font-size: 48px;
         margin-bottom: 10px;
-    }    
+    }
+
     .email {
         font-size: 25px;
     }
+
     .title {
         font-size: 35px;
         margin-bottom: 25px;
     }
 }
 
+.innerContainer {
+    margin-bottom: 50px;
+}
 
 .messageContainer {
     display: grid;
@@ -136,10 +141,29 @@
 
 .update {
     color: #0b9e0bfe;
-    
+
 }
 
 .delete {
     color: #f3452e;
 }
 
+.blogsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px 30px;
+}
+
+
+
+@media screen and (max-width: 1280px) {
+    .blogsContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .blogsContainer {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
