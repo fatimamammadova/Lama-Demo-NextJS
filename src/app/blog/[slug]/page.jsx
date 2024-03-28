@@ -23,8 +23,10 @@ const SingleBlog = ({ params }) => {
   }, []);
 
   useEffect(() => {
-    const blogLink = document.querySelector(".Blog");
-    blogLink.classList.add("navLink_active__xSnAx");
+    if (slug) {
+      const blogLink = document.querySelector(".Blog");
+      blogLink.classList.add("navLink_active__xSnAx");
+    }
   });
 
   const handleDeleteBlog = async (post) => {
