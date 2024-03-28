@@ -7,9 +7,11 @@ import { useEffect } from "react";
 const NavLink = ({ item }) => {
   const pathName = usePathname();
   useEffect(() => {
-    const blogLink = document.querySelector(".Blog");
-    blogLink.classList.add("navLink_active__xSnAx");
-    console.log(pathName)
+    if (pathName.startsWith("/blog/")) {
+      const blogLink = document.querySelector(".Blog");
+      blogLink.classList.add("navLink_active__xSnAx");
+    }
+    console.log(pathName);
   }, [pathName]);
 
   return (
