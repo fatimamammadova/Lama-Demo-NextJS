@@ -107,8 +107,8 @@ const SingleBlog = ({ params }) => {
         )}
       </div>
 
-      <Suspense>
-        {session?.user.id === post?.creator._id && (
+      <Suspense fallback={null}>
+        {post && session?.user.id === post?.creator._id && (
           <div className={styles.fetchButtons}>
             <button
               type="button"
