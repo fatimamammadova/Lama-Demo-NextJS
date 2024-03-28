@@ -5,9 +5,10 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect, Suspense } from "react";
 import { formatDate } from "@/lib/function";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const SingleBlog = ({ params }) => {
+  const pathName = usePathname()
   const router = useRouter();
   const { data: session } = useSession();
   const [post, setPost] = useState(null);
@@ -23,11 +24,11 @@ const SingleBlog = ({ params }) => {
   }, []);
 
   useEffect(() => {
-    if (params.slug) {
+    if (pathName) {
       const blogLink = document.querySelector(".Blog");
       blogLink.classList.add("navLink_active__xSnAx");
     }
-  }, [params.slug]);
+  }, [pathName]);
 
   const handleDeleteBlog = async (post) => {
     const hasConfirmed = confirm("Are you sure you want to delete this blog?");
