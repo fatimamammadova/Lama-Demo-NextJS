@@ -73,42 +73,40 @@ const Profile = ({ params }) => {
             </div>
           </div>
 
-          <Suspense>
-            {session?.user.id === params.id && (
-              <div className={styles.messages}>
-                <h3 className={styles.title}>Messages</h3>
+          {session?.user.id === params.id && (
+            <div className={styles.messages}>
+              <h3 className={styles.title}>Messages</h3>
 
-                <div className={styles.messageContainer}>
-                  {posts &&
-                    posts.map((post) => (
-                      <div className={styles.message} key={post._id}>
-                        <div className={styles.messageProfile}>
-                          <div className={styles.messageImg}>
-                            <Image
-                              src={session?.user.image}
-                              width={35}
-                              height={35}
-                              alt="Profile Image"
-                              priority="true"
-                            />
-                          </div>
-                          <div className={styles.messageInfo}>
-                            <h2 className={styles.messageName}>
-                              {session?.user.name}
-                            </h2>
-                            <p className={styles.messageEmail}>
-                              {session?.user.email}
-                            </p>
-                          </div>
+              <div className={styles.messageContainer}>
+                {posts &&
+                  posts.map((post) => (
+                    <div className={styles.message} key={post._id}>
+                      <div className={styles.messageProfile}>
+                        <div className={styles.messageImg}>
+                          <Image
+                            src={session?.user.image}
+                            width={35}
+                            height={35}
+                            alt="Profile Image"
+                            priority="true"
+                          />
                         </div>
-
-                        <p className={styles.messageText}>{post.message}</p>
+                        <div className={styles.messageInfo}>
+                          <h2 className={styles.messageName}>
+                            {session?.user.name}
+                          </h2>
+                          <p className={styles.messageEmail}>
+                            {session?.user.email}
+                          </p>
+                        </div>
                       </div>
-                    ))}
-                </div>
+
+                      <p className={styles.messageText}>{post.message}</p>
+                    </div>
+                  ))}
               </div>
-            )}
-          </Suspense>
+            </div>
+          )}
         </>
       )}
     </div>
