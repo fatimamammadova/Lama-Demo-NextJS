@@ -40,7 +40,6 @@ const Links = () => {
     } else {
       blogLink.classList.remove("navLink_active__xSnAx");
     }
-    console.log(pathName);
   }, [pathName]);
 
   useEffect(() => {
