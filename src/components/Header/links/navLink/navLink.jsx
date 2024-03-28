@@ -11,7 +11,7 @@ const NavLink = ({ item }) => {
     <Link
       href={item.path}
       className={`${styles.container} ${
-        isActive && styles.active
+        isActive || styles.active
       }`}
     >
       {item.title}
