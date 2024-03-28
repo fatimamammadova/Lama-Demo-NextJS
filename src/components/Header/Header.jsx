@@ -8,7 +8,7 @@ const Header = () => {
         <header>
             <div className={styles.container}>
                 <Link href="/"  className={styles.logo}>
-                    Lama
+                    l-store
                 </Link>
                 <div>
                     <Links/>
