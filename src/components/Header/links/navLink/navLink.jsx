@@ -7,7 +7,7 @@ import { useEffect } from "react";
 const NavLink = ({ item }) => {
   const pathName = usePathname();
   useEffect(() => {
-    if (pathName.startsWith("/blog/")) {
+    if (pathName.startsWith("/blog")) {
       const blogLink = document.querySelector(".Blog");
       blogLink.classList.add("navLink_active__xSnAx");
     }
