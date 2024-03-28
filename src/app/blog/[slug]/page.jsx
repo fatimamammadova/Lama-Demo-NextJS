@@ -23,11 +23,11 @@ const SingleBlog = ({ params }) => {
   }, []);
 
   useEffect(() => {
-    if (params) {
+    if (params.slug) {
       const blogLink = document.querySelector(".Blog");
       blogLink.classList.add("navLink_active__xSnAx");
     }
-  }, [params]);
+  }, [params.slug]);
 
   const handleDeleteBlog = async (post) => {
     const hasConfirmed = confirm("Are you sure you want to delete this blog?");
