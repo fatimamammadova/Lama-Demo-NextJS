@@ -2,17 +2,9 @@
 import Link from "next/link";
 import styles from "./navLink.module.css";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 
 const NavLink = ({ item }) => {
   const pathName = usePathname();
-  useEffect(() => {
-    if (pathName.startsWith("/blog")) {
-      const blogLink = document.querySelector(".Blog");
-      blogLink.classList.add("navLink_active__xSnAx");
-    }
-    console.log(pathName);
-  }, [pathName]);
 
   return (
     <Link

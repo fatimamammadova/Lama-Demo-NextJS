@@ -7,6 +7,7 @@ import NavLink from "./navLink/navLink";
 
 import { signOut, useSession, signIn, getProviders } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const links = [
   {
@@ -31,6 +32,16 @@ const Links = () => {
   const [open, setOpen] = useState();
   const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
+  const pathName = usePathname();
+  useEffect(() => {
+    const blogLink = document.querySelector(".Blog");
+    if (pathName.startsWith("/blog")) {
+      blogLink.classList.add("navLink_active__xSnAx");
+    } else {
+      blogLink.classList.remove("navLink_active__xSnAx");
+    }
+    console.log(pathName);
+  }, [pathName]);
 
   useEffect(() => {
     const setUpProviders = async () => {
@@ -110,16 +121,16 @@ const Links = () => {
           ) : (
             <>
               {providers &&
-              Object.values(providers).map((provider) => (
-                <button
-                  type="button"
-                  key={provider.name}
-                  onClick={() => signIn(provider.id)}
-                  className={styles.signin}
-                >
-                  Sign In
-                </button>
-              ))}
+                Object.values(providers).map((provider) => (
+                  <button
+                    type="button"
+                    key={provider.name}
+                    onClick={() => signIn(provider.id)}
+                    className={styles.signin}
+                  >
+                    Sign In
+                  </button>
+                ))}
             </>
           )}
           {links.map((link) => (
