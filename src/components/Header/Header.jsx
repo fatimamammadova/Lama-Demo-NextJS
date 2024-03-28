@@ -8,7 +8,7 @@ const Header = () => {
         <header>
             <div className={styles.container}>
                 <Link href="/"  className={styles.logo}>
-                    LStore
+                    lstore
                 </Link>
                 <div>
                     <Links/>
