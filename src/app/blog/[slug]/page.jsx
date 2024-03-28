@@ -107,26 +107,24 @@ const SingleBlog = ({ params }) => {
         )}
       </div>
 
-      <Suspense>
-        {session?.user.id === post?.creator._id && (
-          <div className={styles.fetchButtons}>
-            <button
-              type="button"
-              className={styles.update}
-              onClick={() => handleBlogId(post)}
-            >
-              Update
-            </button>
-            <button
-              type="button"
-              className={styles.delete}
-              onClick={() => handleDeleteBlog(post)}
-            >
-              Delete
-            </button>
-          </div>
-        )}
-      </Suspense>
+      {session?.user.id === post?.creator._id && (
+        <div className={styles.fetchButtons}>
+          <button
+            type="button"
+            className={styles.update}
+            onClick={() => handleBlogId(post)}
+          >
+            Update
+          </button>
+          <button
+            type="button"
+            className={styles.delete}
+            onClick={() => handleDeleteBlog(post)}
+          >
+            Delete
+          </button>
+        </div>
+      )}
     </div>
   );
 };
