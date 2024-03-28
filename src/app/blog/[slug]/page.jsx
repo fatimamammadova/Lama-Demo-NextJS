@@ -22,6 +22,11 @@ const SingleBlog = ({ params }) => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const blogLink = document.querySelector(".navLink_active__xSnAx")
+    
+  })
+
   const handleDeleteBlog = async (post) => {
     const hasConfirmed = confirm("Are you sure you want to delete this blog?");
 

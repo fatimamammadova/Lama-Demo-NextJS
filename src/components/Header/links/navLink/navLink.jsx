@@ -9,7 +9,7 @@ const NavLink = ({ item }) => {
   return (
     <Link
       href={item.path}
-      className={`${styles.container} ${
+      className={`${styles.container} ${item.title} ${
         pathName === item.path && styles.active
       }`}
     >
