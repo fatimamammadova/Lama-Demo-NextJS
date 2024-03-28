@@ -67,6 +67,11 @@
         margin-right: 0px;
     }
 
+    .signin {
+        margin-right: 0;
+
+    }
+
     .mobileLinks {
         position: absolute;
         z-index: 10;
