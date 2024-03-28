@@ -107,8 +107,8 @@ const SingleBlog = ({ params }) => {
         )}
       </div>
 
-      {session?.user.id === post?.creator._id && (
-        <Suspense>
+      <Suspense>
+        {session?.user.id === post?.creator._id && (
           <div className={styles.fetchButtons}>
             <button
               type="button"
@@ -125,8 +125,8 @@ const SingleBlog = ({ params }) => {
               Delete
             </button>
           </div>
-        </Suspense>
-      )}
+        )}
+      </Suspense>
     </div>
   );
 };
