@@ -5,9 +5,10 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect, Suspense } from "react";
 import { formatDate } from "@/lib/function";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
-const SingleBlog = ({ params }) => {
+const SingleBlog = () => {
+  const params = useParams();
   const router = useRouter();
   const { data: session } = useSession();
   const [post, setPost] = useState(null);

@@ -3,10 +3,11 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import styles from "../profile.module.css";
 import { Suspense, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import PostCard from "@/components/postCard/postCard";
 
-const Profile = ({ params }) => {
+const Profile = () => {
+  const params = useParams()
   const router = useRouter();
   const { data: session } = useSession();
   const [posts, setPosts] = useState([]);

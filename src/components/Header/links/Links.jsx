@@ -69,7 +69,7 @@ const Links = () => {
                 src={session?.user.image}
                 width={40}
                 height={40}
-                alt="User Image"
+                alt={session?.user.name || "User Image"}
                 priority="true"
               />
             </Link>

@@ -14,25 +14,27 @@ const MyProfile = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`/api/users/${session?.user.id}/posts`);
+      if (!session?.user) return; // Guard clause to prevent unnecessary API calls
+      const res = await fetch(`/api/users/${session.user.id}/posts`);
       const data = await res.json();
 
       setPosts(data);
     };
 
-    if (session?.user.id) fetchData();
-  }, []);
+    fetchData();
+  }, [session?.user]); // Include session?.user in the dependency array
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      const res = await fetch(`/api/users/${session?.user.id}/blogs`);
+      if (!session?.user) return; // Guard clause to prevent unnecessary API calls
+      const res = await fetch(`/api/users/${session.user.id}/blogs`);
       const data = await res.json();
 
       setBlogs(data);
     };
 
-    if (session?.user.id) fetchBlogs();
-  }, []);
+    fetchBlogs();
+  }, [session?.user]);
 
   const handleDelete = async (post) => {
     const hasConfirmed = confirm(
