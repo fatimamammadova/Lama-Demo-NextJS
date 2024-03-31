@@ -33,14 +33,14 @@ const Links = () => {
   const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
   const pathName = usePathname();
-  useEffect(() => {
-    const blogLink = document.querySelector(".Blog");
-    if (pathName.startsWith("/blog")) {
-      blogLink.classList.add("navLink_active__xSnAx");
-    } else {
-      blogLink.classList.remove("navLink_active__xSnAx");
-    }
-  }, [pathName]);
+  // useEffect(() => {
+  //   const blogLink = document.querySelector(".Blog");
+  //   if (pathName.startsWith("/blog")) {
+  //     blogLink.classList.add("navLink_active__xSnAx");
+  //   } else {
+  //     blogLink.classList.remove("navLink_active__xSnAx");
+  //   }
+  // }, [pathName]);
 
   useEffect(() => {
     const setUpProviders = async () => {
