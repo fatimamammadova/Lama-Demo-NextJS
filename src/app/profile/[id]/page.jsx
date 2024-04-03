@@ -38,7 +38,7 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await fetch(`/api/users/${params.id}/admins`);
+      const res = await fetch(`/api/admins/${params.id}`);
       const data = await res.json();
 
       setUser(data);

@@ -5,9 +5,8 @@ import Image from "next/image";
 import styles from "./links.module.css";
 import NavLink from "./navLink/navLink";
 
-import { signOut, useSession, signIn, getProviders } from "next-auth/react";
+import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 
 const links = [
   {
@@ -32,7 +31,6 @@ const Links = () => {
   const [open, setOpen] = useState();
   const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
-  const pathName = usePathname();
 
   useEffect(() => {
     const setUpProviders = async () => {
