@@ -15,7 +15,7 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`/api/users/${params.id}/posts`);
+      const res = await fetch(`/api/users/${params?.id}/posts`);
       const data = await res.json();
 
       setPosts(data);
@@ -26,7 +26,7 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      const res = await fetch(`/api/users/${params.id}/blogs`);
+      const res = await fetch(`/api/users/${params?.id}/blogs`);
       const data = await res.json();
 
       setBlogs(data);
@@ -37,7 +37,7 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await fetch(`/api/admins/${params.id}`);
+      const res = await fetch(`/api/admins/${params?.id}`);
       const data = await res.json();
 
       setUser(data);

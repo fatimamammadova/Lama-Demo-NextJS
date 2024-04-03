@@ -1,8 +1,20 @@
-import User from "@/models/user";
-import { ConnectToDB } from "@/utils/database";
-import NextAuth from "next-auth/next";
+import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import User from "@models/user";
+import { ConnectToDB } from "@utils/database";
+function replaceAzerbaijaniLetters(text) {
+  const replacements = {
+    ə: "e",
+    ç: "c",
+    ş: "s",
+    ü: "u",
+    ö: "o",
+    ğ: "g",
+    ı: "i",
+  };
 
+  return text.replace(/[əçşüöğıı]/g, (letter) => replacements[letter]);
+}
 const handler = NextAuth({
   providers: [
     GoogleProvider({
@@ -12,30 +24,25 @@ const handler = NextAuth({
   ],
   callbacks: {
     async session({ session }) {
-      try {
-        const sessionUser = await User.findOne({ email: session.user.email });
-  
-        if (sessionUser) {
-          session.user.id = sessionUser._id.toString();
-        }
-  
-        return session;
-      } catch (error) {
-        console.error("Error retrieving user session:", error);
-        throw error;
-      }
-    },
+      // store the user id from MongoDB to session
+      const sessionUser = await User.findOne({ email: session.user.email });
+      session.user.id = sessionUser._id.toString();
 
+      return session;
+    },
     async signIn({ profile }) {
       try {
         await ConnectToDB();
 
+        // check if user already exists
         const userExists = await User.findOne({ email: profile.email });
 
+        // if not, create a new document and save user in MongoDB
         if (!userExists) {
           await User.create({
             email: profile.email,
-            username: profile.name,
+            username: replaceAzerbaijaniLetters(profile.name.replace(" ", "").toLowerCase()),
+            fullName:profile.name,
             image: profile.picture,
           });
         }
