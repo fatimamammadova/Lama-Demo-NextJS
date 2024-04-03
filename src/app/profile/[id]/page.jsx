@@ -2,13 +2,12 @@
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import styles from "../profile.module.css";
-import { Suspense, useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import PostCard from "@/components/postCard/postCard";
 
 const Profile = () => {
   const params = useParams()
-  const router = useRouter();
   const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
   const [blogs, setBlogs] = useState([]);
@@ -22,7 +21,7 @@ const Profile = () => {
       setPosts(data);
     };
 
-    if (params.id) fetchData();
+    if (params?.id) fetchData();
   }, []);
 
   useEffect(() => {
@@ -33,7 +32,7 @@ const Profile = () => {
       setBlogs(data);
     };
 
-    if (params.id) fetchBlogs();
+    if (params?.id) fetchBlogs();
   }, []);
 
   useEffect(() => {
@@ -44,7 +43,7 @@ const Profile = () => {
       setUser(data);
     };
 
-    if (params.id) fetchUser();
+    if (params?.id) fetchUser();
   }, []);
 
   return (
@@ -74,7 +73,7 @@ const Profile = () => {
             </div>
           </div>
 
-          {session?.user.id === params.id && (
+          {session?.user.id === params?.id && (
             <div className={styles.messages}>
               <h3 className={styles.title}>Messages</h3>
 

@@ -15,7 +15,7 @@ const SingleBlog = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`/api/blog/${params.slug}`);
+      const response = await fetch(`/api/blog/${params?.slug}`);
       const data = await response.json();
 
       setPost(data);
