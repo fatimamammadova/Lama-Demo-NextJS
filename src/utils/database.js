@@ -13,6 +13,8 @@ export const ConnectToDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
       dbName: "lama_store",
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     });
 
     isConnected = true;
