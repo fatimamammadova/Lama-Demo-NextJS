@@ -12,11 +12,18 @@ const handler = NextAuth({
   ],
   callbacks: {
     async session({ session }) {
-      const sessionUser = await User.findOne({ email: session.user.email });
-
-      session.user.id = sessionUser._id.toString();
-
-      return session;
+      try {
+        const sessionUser = await User.findOne({ email: session.user.email });
+  
+        if (sessionUser) {
+          session.user.id = sessionUser._id.toString();
+        }
+  
+        return session;
+      } catch (error) {
+        console.error("Error retrieving user session:", error);
+        throw error;
+      }
     },
 
     async signIn({ profile }) {
