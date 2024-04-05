@@ -66,7 +66,6 @@ const Profile = () => {
           </div>
 
           <div className={styles.innerContainer}>
-            <h3 className={styles.title}>Blogs</h3>
             {blogs &&
               blogs.map((blog) => (
                 <>
