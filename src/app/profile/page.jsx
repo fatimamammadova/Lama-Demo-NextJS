@@ -14,11 +14,21 @@ const MyProfile = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!session?.user) return; // Guard clause to prevent unnecessary API calls
-      const res = await fetch(`/api/users/${session.user.id}/posts`);
-      const data = await res.json();
 
-      setPosts(data);
+      if(!session?.user) return;
+
+      if (!(session?.user.email=="fatimammmadova@gmail.com")) {
+        const res = await fetch(`/api/users/${session.user.id}/posts`);
+        const data = await res.json();
+  
+        setPosts(data);
+
+      } else if(session?.user.email=="fatimammmadova@gmail.com") {
+        const res = await fetch(`/api/message`);
+        const data = await res.json();
+  
+        setPosts(data);
+      }
     };
 
     fetchData();
@@ -96,7 +106,7 @@ const MyProfile = () => {
                     <div className={styles.messageProfile}>
                       <div className={styles.messageImg}>
                         <Image
-                          src={session?.user.image}
+                          src={post?.creator.image}
                           width={35}
                           height={35}
                           alt="Profile Image"
@@ -105,10 +115,10 @@ const MyProfile = () => {
                       </div>
                       <div className={styles.messageInfo}>
                         <h2 className={styles.messageName}>
-                          {session?.user.name}
+                          {post?.creator.name}
                         </h2>
                         <p className={styles.messageEmail}>
-                          {session?.user.email}
+                          {post?.creator.email}
                         </p>
                       </div>
                     </div>
