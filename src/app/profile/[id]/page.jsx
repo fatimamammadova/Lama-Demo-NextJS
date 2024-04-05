@@ -67,7 +67,7 @@ const Profile = () => {
 
           <div className={styles.innerContainer}>
             <h3 className={styles.title}>Blogs</h3>
-            {blogs ?
+            {blogs &&
               blogs.map((blog) => (
                 <>
                   <h3 className={styles.title}>Blogs</h3>
@@ -75,12 +75,12 @@ const Profile = () => {
                     <PostCard post={blog} key={blog._id} />
                   </div>
                 </>
-              )) : (<p className={styles.alertMessage}>You don't have an existing blog</p>)}
+              ))}
           </div>
 
           {session?.user.id === params?.id && (
             <div className={styles.messages}>
-              {posts ?
+              {posts &&
                 posts.map((post) => (
                   <>
                     <h3 className={styles.title}>Messages</h3>
@@ -110,7 +110,7 @@ const Profile = () => {
                       </div>
                     </div>
                   </>
-                )):  (<p className={styles.alertMessage}>You don't have an existing message</p>)}
+                ))}
             </div>
           )}
         </>
