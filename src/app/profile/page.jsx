@@ -114,7 +114,7 @@ const MyProfile = () => {
                       </div>
                       <div className={styles.messageInfo}>
                         <h2 className={styles.messageName}>
-                          {post?.creator.name}
+                          {post?.creator.username}
                         </h2>
                         <p className={styles.messageEmail}>
                           {post?.creator.email}
