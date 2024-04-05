@@ -14,19 +14,17 @@ const MyProfile = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!session?.user) return;
 
-      if(!session?.user) return;
-
-      if (!(session?.user.email=="fatimammmadova@gmail.com")) {
+      if (!(session?.user.email == "fatimammmadova@gmail.com")) {
         const res = await fetch(`/api/users/${session.user.id}/posts`);
         const data = await res.json();
-  
-        setPosts(data);
 
-      } else if(session?.user.email=="fatimammmadova@gmail.com") {
+        setPosts(data);
+      } else if (session?.user.email == "fatimammmadova@gmail.com") {
         const res = await fetch(`/api/message`);
         const data = await res.json();
-  
+
         setPosts(data);
       }
     };
@@ -90,14 +88,15 @@ const MyProfile = () => {
           </div>
 
           <div className={styles.innerContainer}>
-            <h3 className={styles.title}>Blogs</h3>
+            {blogs && <h3 className={styles.title}>Blogs</h3>}
             <div className={styles.blogsContainer}>
-              {blogs && blogs.map((blog) => <PostCard post={blog} key={blog._id}/>)}
+              {blogs &&
+                blogs.map((blog) => <PostCard post={blog} key={blog._id} />)}
             </div>
           </div>
 
           <div className={styles.innerContainer}>
-            <h3 className={styles.title}>Messages</h3>
+            {posts && <h3 className={styles.title}>Messages</h3>}
 
             <div className={styles.messageContainer}>
               {posts &&
