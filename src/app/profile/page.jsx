@@ -82,7 +82,7 @@ const MyProfile = () => {
           <div className={styles.innerContainer}>
             <h3 className={styles.title}>Blogs</h3>
             <div className={styles.blogsContainer}>
-              {blogs ? blogs.map((blog) => <PostCard post={blog} key={blog._id}/>) : <p className={styles.alertMessage}>You don't have an existing blog</p>}
+              {blogs ? blogs.map((blog) => <PostCard post={blog} key={blog._id}/>) : (<p className={styles.alertMessage}>You don't have an existing blog</p>)}
             </div>
           </div>
 
@@ -131,7 +131,7 @@ const MyProfile = () => {
                       </button>
                     </div>
                   </div>
-                )) : <p className={styles.alertMessage}>You don't have an existing blog</p>}
+                )) : (<p className={styles.alertMessage}>You don't have an existing message</p>)}
             </div>
           </div>
         </>
