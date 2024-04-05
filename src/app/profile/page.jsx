@@ -88,7 +88,7 @@ const MyProfile = () => {
           </div>
 
           <div className={styles.innerContainer}>
-            {blogs && (<h3 className={styles.title}>Blogs</h3>)}
+            {blogs && <h3 className={styles.title}>Blogs</h3>}
             <div className={styles.blogsContainer}>
               {blogs &&
                 blogs.map((blog) => <PostCard post={blog} key={blog._id} />)}
@@ -96,7 +96,7 @@ const MyProfile = () => {
           </div>
 
           <div className={styles.innerContainer}>
-            {posts && (<h3 className={styles.title}>Messages</h3>)}
+            {posts && <h3 className={styles.title}>Messages</h3>}
 
             <div className={styles.messageContainer}>
               {posts &&
@@ -125,12 +125,14 @@ const MyProfile = () => {
                     <p className={styles.messageText}>{post.message}</p>
 
                     <div className={styles.buttons}>
-                      <button
-                        className={styles.update}
-                        onClick={() => handleMessageId(post)}
-                      >
-                        Update
-                      </button>
+                      {post?.creator._id == session?.user.id && (
+                        <button
+                          className={styles.update}
+                          onClick={() => handleMessageId(post)}
+                        >
+                          Update
+                        </button>
+                      )}
                       <button
                         type="button"
                         className={styles.delete}
