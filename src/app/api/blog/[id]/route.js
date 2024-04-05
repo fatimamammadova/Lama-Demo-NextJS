@@ -1,5 +1,5 @@
-import Blog from "@/models/blog";
-import { ConnectToDB } from "@/utils/database";
+import Blog from "../../../../models/blog";
+import { ConnectToDB } from "../../../../utils/database";
 
 //GET
 export const GET = async (request, { params }) => {

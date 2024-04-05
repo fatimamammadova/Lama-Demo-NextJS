@@ -1,5 +1,5 @@
-import Message from "@/models/message";
-import { ConnectToDB } from "@/utils/database";
+import Message from "../../../../models/message";
+import { ConnectToDB } from "../../../../utils/database";
 
 //GET (read)
 export const GET = async (request, { params }) => {

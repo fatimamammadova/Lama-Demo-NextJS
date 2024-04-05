@@ -1,5 +1,5 @@
-import Message from "@/models/message";
-import { ConnectToDB } from "@/utils/database";
+import Message from "../../../../models/message";
+import { ConnectToDB } from "../../../../utils/database";
 
 export const POST = async (req) => {
   const { userId, name, email, phoneNumber, message } = await req.json();

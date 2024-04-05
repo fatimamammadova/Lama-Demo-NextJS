@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 import PostCard from "@/components/postCard/postCard";
 
 const Profile = () => {
-  const params = useParams()
+  const params = useParams();
   const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
   const [blogs, setBlogs] = useState([]);
@@ -67,44 +67,50 @@ const Profile = () => {
 
           <div className={styles.innerContainer}>
             <h3 className={styles.title}>Blogs</h3>
-            <div className={styles.blogsContainer}>
-              {blogs &&
-                blogs.map((blog) => <PostCard post={blog} key={blog._id} />)}
-            </div>
+            {blogs ?
+              blogs.map((blog) => (
+                <>
+                  <h3 className={styles.title}>Blogs</h3>
+                  <div className={styles.blogsContainer}>
+                    <PostCard post={blog} key={blog._id} />
+                  </div>
+                </>
+              )) : (<p className={styles.alertMessage}>You don't have an existing blog</p>)}
           </div>
 
           {session?.user.id === params?.id && (
             <div className={styles.messages}>
-              <h3 className={styles.title}>Messages</h3>
+              {posts ?
+                posts.map((post) => (
+                  <>
+                    <h3 className={styles.title}>Messages</h3>
+                    <div className={styles.messageContainer}>
+                      <div className={styles.message} key={post._id}>
+                        <div className={styles.messageProfile}>
+                          <div className={styles.messageImg}>
+                            <Image
+                              src={session?.user.image}
+                              width={35}
+                              height={35}
+                              alt="Profile Image"
+                              priority="true"
+                            />
+                          </div>
+                          <div className={styles.messageInfo}>
+                            <h2 className={styles.messageName}>
+                              {session?.user.name}
+                            </h2>
+                            <p className={styles.messageEmail}>
+                              {session?.user.email}
+                            </p>
+                          </div>
+                        </div>
 
-              <div className={styles.messageContainer}>
-                {posts &&
-                  posts.map((post) => (
-                    <div className={styles.message} key={post._id}>
-                      <div className={styles.messageProfile}>
-                        <div className={styles.messageImg}>
-                          <Image
-                            src={session?.user.image}
-                            width={35}
-                            height={35}
-                            alt="Profile Image"
-                            priority="true"
-                          />
-                        </div>
-                        <div className={styles.messageInfo}>
-                          <h2 className={styles.messageName}>
-                            {session?.user.name}
-                          </h2>
-                          <p className={styles.messageEmail}>
-                            {session?.user.email}
-                          </p>
-                        </div>
+                        <p className={styles.messageText}>{post.message}</p>
                       </div>
-
-                      <p className={styles.messageText}>{post.message}</p>
                     </div>
-                  ))}
-              </div>
+                  </>
+                )):  (<p className={styles.alertMessage}>You don't have an existing message</p>)}
             </div>
           )}
         </>
