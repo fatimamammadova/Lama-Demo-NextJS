@@ -1,8 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-
-import User from "@models/user";
-import { ConnectToDB } from "@utils/database";
+import User from "../../../../models/user";
+import { ConnectToDB } from "../../../../utils/database";
 function replaceAzerbaijaniLetters(text) {
   const replacements = {
     ə: "e",
@@ -42,8 +41,10 @@ const handler = NextAuth({
         if (!userExists) {
           await User.create({
             email: profile.email,
-            username: replaceAzerbaijaniLetters(profile.name.replace(" ", "").toLowerCase()),
-            fullName:profile.name,
+            username: replaceAzerbaijaniLetters(
+              profile.name.replace(" ", "").toLowerCase()
+            ),
+            fullName: profile.name,
             image: profile.picture,
           });
         }
