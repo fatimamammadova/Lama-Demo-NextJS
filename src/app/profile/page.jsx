@@ -124,29 +124,23 @@ const MyProfile = () => {
 
                     <p className={styles.messageText}>{post.message}</p>
 
-                    {post?.creator._id == session?.user.id ? (
-                      <div className={styles.buttons}>
+                    <div className={styles.buttons}>
+                      {post?.creator._id == session?.user.id && (
                         <button
                           className={styles.update}
                           onClick={() => handleMessageId(post)}
                         >
                           Update
                         </button>
-                        <button
-                          type="button"
-                          className={styles.delete}
-                          onClick={() => handleDelete(post)}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    ) : (
+                      )}
                       <button
                         type="button"
+                        className={styles.delete}
+                        onClick={() => handleDelete(post)}
                       >
-                        Answer
+                        Delete
                       </button>
-                    )}
+                    </div>
                   </div>
                 ))}
             </div>
